@@ -1,0 +1,2 @@
+*.spec.py
+__pycache__/
