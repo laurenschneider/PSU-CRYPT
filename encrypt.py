@@ -11,21 +11,21 @@ def encrypt(input):
     :return: ciphertext
     """
 
-    input.hex()
+    hexInput = ''.join([hex(ord(i)) for i in input]);
+    inputList = [int(hexInput[i:i+4],16) for i in range(0, len(hexInput), 4)]
 
-    # get key - 80 bits
     key = 'aaaaaaaaaa'
-
-    # do for each 64 bit block of input:
+    hexKey = ''.join([hex(ord(i)) for i in key]);
+    keyList = [int(hexKey[i:i+4],16) for i in range(0, len(hexKey), 4)]
 
     # input whitening step
-    res, newKey = whitening.whiten(input, key)
+    res = whitening.whiten(inputList, keyList)
 
-    # initalize each word of block for rounds
-    rZero = 1   # TODO - placeholder
-    rOne = 2
-    rTwo = 3
-    rThree = 4
+    # initalize each word of block for rounds. each of these are int
+    rZero = res[0]
+    rOne = res[1]
+    rTwo = res[2]
+    rThree = res[3]
 
     round = 0
 

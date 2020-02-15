@@ -18,20 +18,15 @@ fTable = [
     [0x5e,0x6c,0xa9,0x13,0x57,0x25,0xb5,0xe3,0xbd,0xa8,0x3a,0x01,0x05,0x59,0x2a,0x46]
 ]
 
+def getFromTable(val):
+    """
+    :param val: int
+    :return: int val from table
+    """
+    print("getFromTable val")
+    print(hex(val))
+    h = "{:02x}".format(val)
+    row = int(h[0],16)
+    col = int(h[1],16)
 
-def getFromTable(row,col):
     return fTable[row][col]
-
-##################################
-# test indexing works
-
-def tableTest():
-
-    test = getFromTable(7,10)
-    print("table test 7a: ", hex(test))
-
-    # should print 0xd6
-
-
-# main
-tableTest()
