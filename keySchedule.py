@@ -15,14 +15,14 @@ def rightRotate(bits):
 def getByte(hexString, byteIndex):
     str = hexString[2:]
     subStr = str[-(byteIndex+1) * 2: len(str) - byteIndex * 2]
-    return hex(int(subStr, 16))
+    return int(subStr, 16)
 
 
 def kEncrypt(x, key):
     """
     :param x: some number
     :param key: the 80 bit key. must be hex()
-    :return: 1 subkey, 1 byte long, in hex
+    :return: 1 subkey, 1 byte long, in int
     :return: rotated key
     """
     # key is 10 bytes: k9,k8,k7,k6,k5,k4,k3,k2,k1,k0
@@ -42,3 +42,25 @@ def kDecrypt(x, key):
     """
 
     pass
+
+def generateRoundKeys(round, key):
+    """
+    :param round: int
+    :param key: 80 bit key in hex
+    :return: list of 12 subkeys for the round. Each subkey 1 byte in int
+    :return: last used key in hex string
+    """
+
+    subKeys = []
+
+    for i in range(0,3):
+        subKeyOne, key = kEncrypt(4*round, key)
+        subKeyTwo, key = kEncrypt(4*round+1, key)
+        subKeyThree, key = kEncrypt(4*round+2, key)
+        subKeyFour, key = kEncrypt(4*round+3, key)
+        subKeys.append(subKeyOne)
+        subKeys.append(subKeyTwo)
+        subKeys.append(subKeyThree)
+        subKeys.append(subKeyFour)
+
+    return subKeys, key

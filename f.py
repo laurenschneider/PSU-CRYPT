@@ -43,6 +43,9 @@ def func(rZero, rOne, round, subKeys):
     :return: F0 int
     :return: F1 int
     """
+    print("\n\n----")
+    print("top of f, first key, last key: ", hex(subKeys[0]), " ", hex(subKeys[11]))
+    print("round: ", round)
 
     tZero = gFunc(rZero, round, subKeys[0:4])               # need four keys
     tOne = gFunc(rOne, round, subKeys[4:8])                 # need four keys
