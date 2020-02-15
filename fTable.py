@@ -23,8 +23,7 @@ def getFromTable(val):
     :param val: int
     :return: int val from table
     """
-    print("getFromTable val")
-    print(hex(val))
+    
     h = "{:02x}".format(val)
     row = int(h[0],16)
     col = int(h[1],16)

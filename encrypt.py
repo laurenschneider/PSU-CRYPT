@@ -11,15 +11,18 @@ def encrypt(input):
     :return: ciphertext
     """
 
-    hexInput = ''.join([hex(ord(i)) for i in input]);
+    hexInput = ''.join([ "{:02x}".format(ord(i)) for i in input ])
     inputList = [int(hexInput[i:i+4],16) for i in range(0, len(hexInput), 4)]
 
-    key = 'aaaaaaaaaa'
-    hexKey = ''.join([hex(ord(i)) for i in key]);
-    keyList = [int(hexKey[i:i+4],16) for i in range(0, len(hexKey), 4)]
+    key = '0xabcdef0123456789abcd'
+    key = key[2:]
+    keyList = [int(key[i:i+4],16) for i in range(0, len(key), 4)]
 
     # input whitening step
     res = whitening.whiten(inputList, keyList)
+
+    print("r0: ", res[0])
+    print("r1: ", res[1])
 
     # initalize each word of block for rounds. each of these are int
     rZero = res[0]
@@ -32,7 +35,8 @@ def encrypt(input):
     for i in range (0,15):
         rZeroTemp = rZero
         rOneTemp = rOne
-        fZero, fOne = f.func(rZero,rOne,round)
+        subKeys = []
+        fZero, fOne = f.func(rZero, rOne, round, subKeys)
         rZero = rTwo ^ fZero
         rOne = rThree ^ fOne
         rTwo = rZeroTemp

@@ -1,6 +1,6 @@
 import encrypt
 
-input = 'thequick'      # brown fox
+input = 'security'      
 
 ciphertext = encrypt(input)
 

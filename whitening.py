@@ -2,10 +2,9 @@
 
 def whiten(block, key):
     """
-    :param block: list of four ints
-    :param key: list of five ints
+    :param block: list of four ints, 16 bits each
+    :param key: list of five ints, 16 bits each
     :return: new list of four ints
-    :return: shifted key in int
     """
     result = []
     for i, word in enumerate(block):

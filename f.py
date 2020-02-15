@@ -22,11 +22,16 @@ def gFunc(r, round, keys):
     bLow = b[8:]                        # get only 8 low bits
     gTwo = int(bLow, 2)                 # convert back to int from base 2
 
+    print("g1 :", hex(gOne))
+    print("g2 :", hex(gTwo))
     gThree = fTable.getFromTable(gTwo^keys[0]) ^ gOne
+    print("g3 :", hex(gThree))
     gFour = fTable.getFromTable(gThree^keys[1]) ^ gTwo
+    print("g4 :", hex(gFour))
     gFive = fTable.getFromTable(gFour^keys[2]) ^ gThree
+    print("g5: ", hex(gFive))
     gSix = fTable.getFromTable(gFive^keys[3]) ^ gFour
-
+    print("g6: ", hex(gSix))
     return concatBytes(gFive, gSix)
 
 def func(rZero, rOne, round, subKeys):
@@ -41,6 +46,10 @@ def func(rZero, rOne, round, subKeys):
 
     tZero = gFunc(rZero, round, subKeys[0:4])               # need four keys
     tOne = gFunc(rOne, round, subKeys[4:8])                 # need four keys
+
+    print("t0: ", hex(tZero))
+    print("t1: ", hex(tOne))
+
     cKeysOne = concatBytes(subKeys[8], subKeys[9])          # need two keys
     cKeysTwo = concatBytes(subKeys[10], subKeys[11])        # need two keys
     fZero = (tZero + (2*tOne) + cKeysOne) % 65536
