@@ -8,13 +8,32 @@ if len(args) > 1:
         pFile = open("plaintext.txt", "r")
         input = pFile.read()
         pFile.close()
-        ciphertext = encrypt.encrypt(input)
+
+        kFile = open("key.txt", "r")
+        key = kFile.read()
+        kFile.close()
+
+        ciphertext = encrypt.encrypt(input, key, 0)
+
         cFile = open("ciphertextResult.txt", "w")
         cFile.write(ciphertext)
         cFile.close()
 
     elif str(args[1]) == 'decrypt':
-        print("decrption coming soon")
+        cFile = open("ciphertext.txt", "r")
+        input = cFile.read()
+        cFile.close()
+
+        kFile = open("key.txt", "r")
+        key = kFile.read()
+        kFile.close()
+
+        plaintext = encrypt.encrypt(input, key, 1)
+
+        pFile = open("plaintextResult.txt", "w")
+        pFile.write(plaintext)
+        pFile.close()
+
     else:
         print("invalid argument. Please use encrypt or decrypt")
 

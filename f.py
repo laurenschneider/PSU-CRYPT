@@ -8,11 +8,10 @@ def concatBytes(b1, b2):
     """
     return (b1<<8) | b2
 
-def gFunc(r, round, keys):
+def gFunc(r, keys):
     """
     g func called from f func
     :param r: int, 16 bits
-    :param round: int
     :param keys: list of 4 keys, 4 ints
     :return: 16 bit int
     """
@@ -47,8 +46,8 @@ def func(rZero, rOne, round, subKeys):
     print("top of f, first key, last key: ", hex(subKeys[0]), " ", hex(subKeys[11]))
     print("round: ", round)
 
-    tZero = gFunc(rZero, round, subKeys[0:4])               # need four keys
-    tOne = gFunc(rOne, round, subKeys[4:8])                 # need four keys
+    tZero = gFunc(rZero, subKeys[0:4])               # need four keys
+    tOne = gFunc(rOne, subKeys[4:8])                 # need four keys
 
     print("t0: ", hex(tZero))
     print("t1: ", hex(tOne))

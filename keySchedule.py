@@ -34,15 +34,6 @@ def kEncrypt(x, key):
     return getByte(rotatedKey, byteNum), rotatedKey
 
 
-def kDecrypt(x, key):
-    """
-    :param x: some number
-    :param key: the 80 bit key
-    :return: x mod 10 byte of the key K’
-    """
-
-    pass
-
 def generateRoundKeys(round, key):
     """
     :param round: int
