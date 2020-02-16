@@ -78,6 +78,10 @@ def encrypt(input, key, flag):
         subKeys, key = keySchedule.generateRoundKeys(i, key)
         allKeys.append(subKeys)
 
+    # split after newline char
+    res = input.split('\n')
+    input = res[0]
+
     result = ''
 
     if flag == 0:       # encrypt
@@ -110,17 +114,11 @@ def encrypt(input, key, flag):
         # get keys reversed
         revKeys = allKeys[::-1]
 
-        # remove newline char in ciphertext
-        res = input.split('\n')
-        input = res[0]
-
-        # need 64 bit blocks, add padding if necessary
-        if (len(input) % 8) != 0:
-            print("adding padding to input")
-            print(input)
-            r = len(input) % 8
-            for i in range(0,8-r):
-                input = input + ' '
+        # need 64 bit blocks, cut off extra
+        if (len(input) % 16) != 0:
+            r = len(input) % 16
+            end = len(input) - r
+            input = input[:end]
 
         # split into list of 64 bit strings, 8 bytes, so 8 hex pairs
         blocks = [input[i:i+16] for i in range(0, len(input), 16)]
