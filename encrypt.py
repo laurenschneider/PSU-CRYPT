@@ -59,6 +59,11 @@ def blockEncrypt(input, key, allSubKeys):
     for i in range(0,len(ciphertextList)):
         h = hex(ciphertextList[i])
         h = h[2:]
+        if len(h) < 4 :
+            pad = 4 - len(h)
+            for p in range(0,pad):
+                h = '0' + h
+        print('\n\n\nciphertext: ',h,'\n\n\n')
         ciphertext = ciphertext + h
 
     return ciphertext
@@ -102,8 +107,8 @@ def encrypt(input, key, flag):
         for i in range(0, len(blocks)):
 
             # format the first block to list form
-            hexInput = ''.join([ "{:02x}".format(ord(i)) for i in blocks[i] ])
-            inputList = [int(hexInput[i:i+4],16) for i in range(0, len(hexInput), 4)]
+            hexInput = ''.join([ "{:02x}".format(ord(k)) for k in blocks[i] ])
+            inputList = [int(hexInput[j:j+4],16) for j in range(0, len(hexInput), 4)]
 
             c = blockEncrypt(inputList, key, allKeys)
             ciphertext = ciphertext + c
@@ -119,6 +124,7 @@ def encrypt(input, key, flag):
             r = len(input) % 16
             end = len(input) - r
             input = input[:end]
+
 
         # split into list of 64 bit strings, 8 bytes, so 8 hex pairs
         blocks = [input[i:i+16] for i in range(0, len(input), 16)]
