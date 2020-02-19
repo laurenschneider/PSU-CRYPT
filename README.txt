@@ -38,5 +38,5 @@ ciphertext.txt
   Ciphertext for decryption. Must be hex form WITHOUT "0x"
 plaintextResult.txt
   Output of running decryption
-ciphertextResult
+ciphertextResult.txt
   Output of running encryption
